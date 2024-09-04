@@ -3,8 +3,9 @@ client = OpenAI(
     base_url="https://platform.preferredai.jp/api/completion/v1"
 )
 
+function_name = "introduce_charactors"
 function = dict(
-    name="introduce_charactors",
+    name=function_name,
     description="与えられたキャラクターを紹介する",
     parameters=dict(
         type="object",
@@ -15,10 +16,6 @@ function = dict(
     ),
 )
 
-tools = [
-    dict(type="function", function=function)
-]
-
 user_input = (
     "桃から生まれた桃太郎は、おじいさんとおばあさんに大切に育てられ、立派に成長しました。"
     "桃太郎は、鬼ヶ島に行って鬼を退治することを決意し、犬、猿、きじを仲間にしました。"
@@ -28,17 +25,16 @@ user_input = (
 result = client.chat.completions.create(
     model="plamo-beta",
     messages=[
-        {"role": "system", "content": "introduce_charactors(name_list)は与えられたキャラクターを紹介する関数です。これを使って以下の物語の登場人物を紹介してください。"},
         {"role": "user", "content": user_input},
     ],
     temperature=0.1,
     top_p=0.9,
     n=1,
-    tools=tools,
+    tools=[{"function": function}],
     tool_choice={
         "type": "function",
         "function": {
-            "name": "introduce_charactors"
+            "name": function_name
         }
     },
 )
