@@ -5,7 +5,7 @@ Rephrase Quiz
 
 ## 使い方
 
-まず、環境変数 `OPEAI_API_KEY` に、[PLaMo β版 トライアル](https://plamo.preferredai.jp/)で申し込みを行なって入手したAPIキーをセットしてください。
+まず、環境変数 `OPENAI_API_KEY` に、[PLaMo β版 トライアル](https://plamo.preferredai.jp/)で申し込みを行なって入手したAPIキーをセットしてください。
 
 ```sh
 export OPENAI_API_KEY=<YOUR_API_KEY>
