@@ -13,10 +13,10 @@ get_current_feather(location: string, unit: string)
 
 ## 使い方
 
-まず、環境変数 `OPENAI_API_KEY` に、[PLaMo β版 トライアル](https://plamo.preferredai.jp/)で申し込みを行なって入手したAPIキーをセットしてください。
+まず、環境変数 `PLAMO_API_KEY` に、[PLaMo Prime](https://plamo.preferredai.jp/)で申し込みを行なっていただき入手したAPIキーをセットしてください。
 
 ```sh
-export OPENAI_API_KEY=<YOUR_API_KEY>
+export PLAMO_API_KEY=<YOUR_API_KEY>
 ```
 
 次に、必要なパッケージをインストールして、サンプルを実行します。
