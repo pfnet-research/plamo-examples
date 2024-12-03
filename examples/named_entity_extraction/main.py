@@ -1,6 +1,10 @@
+import os
+
 from openai import OpenAI
+
 client = OpenAI(
-    base_url="https://platform.preferredai.jp/api/completion/v1"
+    base_url="https://platform.preferredai.jp/api/completion/v1",
+    api_key=os.environ["PLAMO_API_KEY"],
 )
 
 function_name = "introduce_charactors"
@@ -23,7 +27,7 @@ user_input = (
 )
 
 result = client.chat.completions.create(
-    model="plamo-beta",
+    model="plamo-1.0-prime",
     messages=[
         {"role": "user", "content": user_input},
     ],
@@ -31,12 +35,7 @@ result = client.chat.completions.create(
     top_p=0.9,
     n=1,
     tools=[{"function": function}],
-    tool_choice={
-        "type": "function",
-        "function": {
-            "name": function_name
-        }
-    },
+    tool_choice={"type": "function", "function": {"name": function_name}},
 )
 
 print(f"User input: {user_input}")

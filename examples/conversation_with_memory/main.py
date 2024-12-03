@@ -1,4 +1,5 @@
 import datetime
+import os
 
 import requests
 from langchain.chains import ConversationChain
@@ -14,44 +15,44 @@ JST = datetime.timezone(datetime.timedelta(hours=9))
 current_time_jst = datetime.datetime.now(JST)
 
 BASE_URL = "https://platform.preferredai.jp/api/completion/v1"
-MODEL_NAME = "plamo-beta"
+MODEL_NAME = "plamo-1.0-prime"
+API_KEY = os.environ["PLAMO_API_KEY"]
 
 
-class Plamo(ChatOpenAI):
+class PlamoWithTokenizer(ChatOpenAI):
+
+    def _plamo_tokenize(self, messages: list[BaseMessage]) -> list[int]:
+        messages = [_convert_message_to_dict(message) for message in messages]
+        response = requests.post(
+            url=f"{BASE_URL}/tokenize",
+            json={
+                "model": MODEL_NAME,
+                "messages": messages,
+                "add_special_tokens": True,
+                "add_generation_prompt": True,
+            },
+            headers={
+                "Authorization": f"Bearer {API_KEY}",
+                "Content-Type": "application/json",
+            },
+        )
+        response.raise_for_status()
+        return response.json()["count"]
 
     def get_num_tokens_from_messages(self, messages: list[BaseMessage]) -> int:
-        num_tokens = 0
-        messages_dict = [_convert_message_to_dict(m) for m in messages]
-        for message in messages_dict:
-            for key, value in message.items():
-                if isinstance(value, list):
-                    for val in value:
-                        if isinstance(val, str) or val["type"] == "text":
-                            text = val["text"] if isinstance(val, dict) else val
-                            ret = requests.post(
-                                url=BASE_URL,
-                                json={
-                                    "model": MODEL_NAME,
-                                    "prompt": text,
-                                },
-                            )
-                            num_tokens += ret.json()["count"]
-                        else:
-                            raise ValueError(f"Unrecognized content block type\n\n{val}")
-                elif not value:
-                    continue
-                else:
-                    num_tokens += len(value)
+        if len(messages) == 0:
+            return 0
+        num_tokens = self._plamo_tokenize(messages)
         return num_tokens
 
 
-llm = Plamo(
+llm = PlamoWithTokenizer(
     base_url=BASE_URL,
     model=MODEL_NAME,
     streaming=False,
     verbose=True,
-    max_tokens=1000,
     temperature=0.7,
+    api_key=API_KEY,
 )
 
 prompt = ChatPromptTemplate(
@@ -73,7 +74,7 @@ prompt = ChatPromptTemplate(
 memory = ConversationSummaryBufferMemory(
     llm=llm,
     return_messages=True,
-    max_token_limit=3000,
+    max_token_limit=2**14,
 )
 conversation = ConversationChain(
     llm=llm,
