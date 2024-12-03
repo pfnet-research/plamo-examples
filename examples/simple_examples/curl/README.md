@@ -11,16 +11,16 @@ curlで最低限APIをリクエストするためのサンプル
 
 ### 環境変数の設定
 
-環境変数 `API_KEY` に、[PLaMo Prime](https://plamo.preferredai.jp/)で申し込みを行ない、入手したAPIキーをセットしてください。
+環境変数 `PLAMO_API_KEY` に、[PLaMo Prime](https://plamo.preferredai.jp/)で申し込みを行ない、入手したAPIキーをセットしてください。
 
 ```sh
-export API_KEY=<YOUR_API_KEY>
+export PLAMO_API_KEY=<YOUR_API_KEY>
 ```
 
 ## 実行
 
 ```bash
-curl -w "\n" -H "Authorization: Bearer ${API_KEY}" -H "Content-Type: application/json" \
+curl -w "\n" -H "Authorization: Bearer ${PLAMO_API_KEY}" -H "Content-Type: application/json" \
     -d '{"messages":[{"role": "system", "content": "あなたは学校の先生です"}, {"role": "user", "content": "二次方程式の解の公式を端的に教えてください"}], "model": "plamo-1.0-prime"}' \
     https://platform.preferredai.jp/api/completion/v1/chat/completions
 ```
