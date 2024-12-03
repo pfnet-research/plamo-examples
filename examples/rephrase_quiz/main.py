@@ -1,3 +1,5 @@
+import os
+
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.tools import tool
@@ -42,7 +44,8 @@ def wrong_answer(feedback: str) -> str:
 
 llm = ChatOpenAI(
     base_url="https://platform.preferredai.jp/api/completion/v1",
-    model="plamo-beta",
+    api_key=os.environ["PLAMO_API_KEY"],
+    model="plamo-1.0-prime",
     verbose=True,
 )
 
