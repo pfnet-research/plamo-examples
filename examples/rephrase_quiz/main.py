@@ -1,7 +1,7 @@
 import os
 
-from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.messages import SystemMessage
+from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
 from langchain_core.tools import tool
 from langchain_openai import ChatOpenAI
 
@@ -67,7 +67,7 @@ prompt = ChatPromptTemplate.from_messages(
             "---\n"
             "問題文: 台風１０号が近づいている。\n",
         ),
-        HumanMessage("{input}"),
+        HumanMessagePromptTemplate.from_template("{input}"),
     ]
 )
 
