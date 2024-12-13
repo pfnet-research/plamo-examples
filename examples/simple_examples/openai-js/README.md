@@ -1,5 +1,5 @@
 openai javascript example
-========================
+=========================
 
 JavaScriptの [`openai` ライブラリ](https://github.com/openai/openai-node)を用いて、最低限APIをリクエストするためのサンプル
 
