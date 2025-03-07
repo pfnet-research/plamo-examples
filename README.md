@@ -5,7 +5,7 @@
 
 ## Example紹介
 
-- [Simple Examples](./examples/simaple_examples/)
+- [Simple Examples](./examples/simple_examples/)
     - 最も単純に、最低限の設定でAPIを利用するサンプルです。初回API利用時等、正しくアクセスできていることを確認するためにご利用いただけます。
     - `curl` および Pythonの `openai` ライブラリと `langchain` ライブラリ、Javascriptの `openai` ライブラリを用いたサンプルを記載しています。
 - [Conversation with Memory](./examples/conversation_with_memory/)
