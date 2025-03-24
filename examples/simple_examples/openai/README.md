@@ -13,7 +13,7 @@ pip install -r requirements.txt
 
 ### 環境変数の設定
 
-環境変数 `PLAMO_API_KEY` に、[PLaMo β版 トライアル](https://plamo.preferredai.jp/)で申し込みを行ない、入手したAPIキーをセットしてください。
+環境変数 `PLAMO_API_KEY` に、[PLaMo Webサイト](https://plamo.preferredai.jp/)で申し込みを行ない、入手したAPIキーをセットしてください。
 
 ```sh
 export PLAMO_API_KEY=<YOUR_API_KEY>

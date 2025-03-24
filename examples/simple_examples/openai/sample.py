@@ -9,7 +9,7 @@ client = OpenAI(
 )
 
 completion = client.chat.completions.create(
-    model="plamo-beta",
+    model="plamo-1.0-prime",
     messages=[
         {"role": "system", "content": "あなたは学校の先生です"},
         {"role": "user", "content": "二次方程式の解の公式を端的に教えてください"},
