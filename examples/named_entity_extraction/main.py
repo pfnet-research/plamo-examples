@@ -34,7 +34,7 @@ result = client.chat.completions.create(
     temperature=0.1,
     top_p=0.9,
     n=1,
-    tools=[{"function": function}],
+    tools=[{"type": "function", "function": function}],
     tool_choice={"type": "function", "function": {"name": function_name}},
 )
 
