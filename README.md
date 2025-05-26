@@ -19,3 +19,4 @@
 - [Named Entity Extraction](./examples/named_entity_extraction/)
     - Function Callingの機能を利用して、入力テキストから特定の種類の固有名詞を抽出するサンプルです。
     - 桃太郎の物語から登場人物名のリストを作成します。
+
