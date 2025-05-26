@@ -5,7 +5,7 @@ on:
     branches: [ main ]
     paths:
       - 'examples/**'
-      - '.github/workflows/test-examples.yml'
+      - '.github/workflows/test-examples.yaml'
 
 jobs:
   # Python examples
@@ -96,6 +96,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       
       - name: Prepare test input
+        working-directory: examples/conversation_with_memory
         run: |
           cat > test_input.txt << EOL
           こんにちは
@@ -106,7 +107,7 @@ jobs:
         working-directory: examples/conversation_with_memory
         env:
           PLAMO_API_KEY: ${{ secrets.PLAMO_API_KEY }}
-        run: cat ../../../test_input.txt | python main.py
+        run: cat test_input.txt | python main.py
 
   test-named-entity-extraction:
     name: Test named_entity_extraction
@@ -149,6 +150,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       
       - name: Prepare test input
+        working-directory: examples/rephrase_quiz
         run: |
           cat > test_input.txt << EOL
           テスト回答
@@ -158,7 +160,7 @@ jobs:
         working-directory: examples/rephrase_quiz
         env:
           PLAMO_API_KEY: ${{ secrets.PLAMO_API_KEY }}
-        run: cat ../../../test_input.txt | python main.py
+        run: cat test_input.txt | python main.py
 
   # JavaScript examples
   test-simple-examples-openai-js:
