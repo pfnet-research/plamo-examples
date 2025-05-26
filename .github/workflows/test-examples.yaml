@@ -1,0 +1,198 @@
+name: Test Examples
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'examples/**'
+      - '.github/workflows/test-examples.yml'
+
+jobs:
+  # Python examples
+  test-simple-examples-openai:
+    name: Test simple_examples/openai
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        working-directory: examples/simple_examples/openai
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      
+      - name: Run example
+        working-directory: examples/simple_examples/openai
+        env:
+          PLAMO_API_KEY: ${{ secrets.PLAMO_API_KEY }}
+        run: python sample.py
+
+  test-simple-examples-langchain:
+    name: Test simple_examples/langchain
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        working-directory: examples/simple_examples/langchain
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      
+      - name: Run example
+        working-directory: examples/simple_examples/langchain
+        env:
+          PLAMO_API_KEY: ${{ secrets.PLAMO_API_KEY }}
+        run: python sample.py
+
+  test-function-calling-basic:
+    name: Test function_calling_basic
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        working-directory: examples/function_calling_basic
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      
+      - name: Run example
+        working-directory: examples/function_calling_basic
+        env:
+          PLAMO_API_KEY: ${{ secrets.PLAMO_API_KEY }}
+        run: python main.py
+
+  test-conversation-with-memory:
+    name: Test conversation_with_memory
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        working-directory: examples/conversation_with_memory
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      
+      - name: Prepare test input
+        run: |
+          cat > test_input.txt << EOL
+          こんにちは
+          exit
+          EOL
+      
+      - name: Run example
+        working-directory: examples/conversation_with_memory
+        env:
+          PLAMO_API_KEY: ${{ secrets.PLAMO_API_KEY }}
+        run: cat ../../../test_input.txt | python main.py
+
+  test-named-entity-extraction:
+    name: Test named_entity_extraction
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        working-directory: examples/named_entity_extraction
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      
+      - name: Run example
+        working-directory: examples/named_entity_extraction
+        env:
+          PLAMO_API_KEY: ${{ secrets.PLAMO_API_KEY }}
+        run: python main.py
+
+  test-rephrase-quiz:
+    name: Test rephrase_quiz
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        working-directory: examples/rephrase_quiz
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      
+      - name: Prepare test input
+        run: |
+          cat > test_input.txt << EOL
+          テスト回答
+          EOL
+      
+      - name: Run example
+        working-directory: examples/rephrase_quiz
+        env:
+          PLAMO_API_KEY: ${{ secrets.PLAMO_API_KEY }}
+        run: cat ../../../test_input.txt | python main.py
+
+  # JavaScript examples
+  test-simple-examples-openai-js:
+    name: Test simple_examples/openai-js
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        working-directory: examples/simple_examples/openai-js
+        run: npm install openai
+      
+      - name: Run example
+        working-directory: examples/simple_examples/openai-js
+        env:
+          PLAMO_API_KEY: ${{ secrets.PLAMO_API_KEY }}
+        run: node sample.js
+
+  # Curl examples
+  test-simple-examples-curl:
+    name: Test simple_examples/curl
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Run example
+        env:
+          PLAMO_API_KEY: ${{ secrets.PLAMO_API_KEY }}
+        run: |
+          curl -w "\n" -H "Authorization: Bearer ${PLAMO_API_KEY}" -H "Content-Type: application/json" \
+            -d '{"messages":[{"role": "system", "content": "あなたは学校の先生です"}, {"role": "user", "content": "二次方程式の解の公式を端的に教えてください"}], "model": "plamo-2.0-prime"}' \
+            https://platform.preferredai.jp/api/completion/v1/chat/completions
