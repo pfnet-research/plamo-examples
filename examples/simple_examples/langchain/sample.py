@@ -4,7 +4,7 @@ from langchain_openai import ChatOpenAI
 
 llm = ChatOpenAI(
     base_url=f"https://platform.preferredai.jp/api/completion/v1",
-    model="plamo-1.0-prime",
+    model="plamo-2.0-prime",
     api_key=os.environ["PLAMO_API_KEY"],
     # other params...,
 )
