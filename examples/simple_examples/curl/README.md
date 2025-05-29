@@ -22,7 +22,7 @@ export PLAMO_API_KEY=<YOUR_API_KEY>
 ```bash
 curl -w "\n" -H "Authorization: Bearer ${PLAMO_API_KEY}" -H "Content-Type: application/json" \
     -d '{"messages":[{"role": "system", "content": "あなたは学校の先生です"}, {"role": "user", "content": "二次方程式の解の公式を端的に教えてください"}], "model": "plamo-2.0-prime"}' \
-    https://platform.preferredai.jp/api/completion/v1/chat/completions
+    https://api.platform.preferredai.jp/v1/chat/completions
 ```
 
 ## 実行結果例

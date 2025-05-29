@@ -3,7 +3,7 @@ import os
 from langchain_openai import ChatOpenAI
 
 llm = ChatOpenAI(
-    base_url=f"https://platform.preferredai.jp/api/completion/v1",
+    base_url=f"https://api.platform.preferredai.jp/v1",
     model="plamo-2.0-prime",
     api_key=os.environ["PLAMO_API_KEY"],
     # other params...,

@@ -43,7 +43,7 @@ def wrong_answer(feedback: str) -> str:
 
 
 llm = ChatOpenAI(
-    base_url="https://platform.preferredai.jp/api/completion/v1",
+    base_url="https://api.platform.preferredai.jp/v1",
     api_key=os.environ["PLAMO_API_KEY"],
     model="plamo-2.0-prime",
     verbose=True,
