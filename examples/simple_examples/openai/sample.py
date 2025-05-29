@@ -3,7 +3,7 @@ import os
 from openai import OpenAI
 
 client = OpenAI(
-    base_url=f"https://platform.preferredai.jp/api/completion/v1",
+    base_url=f"https://api.platform.preferredai.jp/v1",
     api_key=os.environ["PLAMO_API_KEY"],
     # other params...,
 )

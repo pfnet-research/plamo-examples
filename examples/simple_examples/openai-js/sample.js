@@ -1,7 +1,7 @@
 const { OpenAI } = require('openai')
 
 const openai = new OpenAI({
-  baseURL: 'https://platform.preferredai.jp/api/completion/v1',
+  baseURL: 'https://api.platform.preferredai.jp/v1',
   apiKey: process.env.PLAMO_API_KEY
   // other params...
 });

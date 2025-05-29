@@ -14,7 +14,7 @@ from openai import BadRequestError
 JST = datetime.timezone(datetime.timedelta(hours=9))
 current_time_jst = datetime.datetime.now(JST)
 
-BASE_URL = "https://platform.preferredai.jp/api/completion/v1"
+BASE_URL = "https://api.platform.preferredai.jp/v1"
 MODEL_NAME = "plamo-2.0-prime"
 API_KEY = os.environ["PLAMO_API_KEY"]
 
